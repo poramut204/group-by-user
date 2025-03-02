@@ -66,4 +66,8 @@ export const groupByDepartment = (users: User[]): GroupedByDepartment => {
 
         return acc;
     }, {} as GroupedByDepartment);
+    
 };
+
+
+
