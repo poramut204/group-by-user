@@ -1,4 +1,21 @@
-import { groupByDepartment, User } from './index';
+import { groupByDepartment, User ,fetchUsers} from './index';
+
+import axios from 'axios';
+
+jest.mock('axios');
+
+test('fetchUsers should fetch user data from API', async () => {
+    const mockUsers = [{ id: 1, firstName: 'John', lastName: 'Doe', gender: 'male', age: 30, 
+        hair: { color: 'Black', type: 'Straight' }, 
+        address: { postalCode: '12345' }, 
+        company: { department: 'Engineering' } }];
+
+    (axios.get as jest.Mock).mockResolvedValue({ data: { users: mockUsers } });
+
+    const users = await fetchUsers();
+    expect(users).toEqual(mockUsers);
+});
+
 
 test('should correctly group users by department and generate summary', () => {
     const users: User[] = [
